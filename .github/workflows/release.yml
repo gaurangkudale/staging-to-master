@@ -21,9 +21,9 @@ jobs:
 
     - name: Create PR
       run: |
-        git checkout -b pr-branch
+        git checkout -b staging
         git merge staging --no-ff --no-edit
-        git push origin pr-branch
+        git push origin staging
 
         # Create a pull request
-        gh pr create --base master --head pr-branch --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
+        gh pr create --base master --head staging --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
