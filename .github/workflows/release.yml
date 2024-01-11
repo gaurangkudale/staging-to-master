@@ -15,15 +15,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v2
 
-    - name: Install GH CLI
-      uses: dev-hanz-ops/install-gh-cli-action@v0.1.0
-  
 
     - name: Create PR
       run: |
-        git checkout -b pr-branch
-        git merge staging --no-ff --no-edit
-        git push origin pr-branch
+        git checkout staging
 
         # Create a pull request to main-gk branch
-        gh pr create --base main-gk --head pr-branch --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
+        gh pr create --base main-gk --head staging --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
