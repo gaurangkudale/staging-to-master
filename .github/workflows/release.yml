@@ -1,0 +1,29 @@
+name: Manual PR Deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version for the release'
+        required: true
+
+jobs:
+  create_pr:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install GH CLI
+      uses: dev-hanz-ops/install-gh-cli-action@v0.1.0
+  
+
+    - name: Create PR
+      run: |
+        git checkout -b pr-branch
+        git merge staging --no-ff --no-edit
+        git push origin pr-branch
+
+        # Create a pull request
+        gh pr create --base master --head pr-branch --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
