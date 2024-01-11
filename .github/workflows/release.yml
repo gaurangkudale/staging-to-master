@@ -1,4 +1,4 @@
-name: Manual PR Deployment
+name: Manual PR Deployment to main
 
 on:
   workflow_dispatch:
@@ -25,3 +25,13 @@ jobs:
       env:
             GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
+    - name: Merge PR info
+      id: tag_info_out
+      run: |
+        merged_commit_sha=$(git rev-parse "HEAD^{commit}")
+        pr_title=$(git log --merges --pretty=format:"%b" -n 1 $merged_commit_sha | grep -oP "(?<=Merge pull request #\d+ from .*:\s).*" | tr -d '\n')
+
+        # Optionally, you can format the PR title if needed (e.g., removing spaces)
+        formatted_pr_title=$(echo "$pr_title" | tr -d ' ')
+
+        echo "::set-output name=TAG_INFO::${formatted_pr_title}"
