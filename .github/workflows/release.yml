@@ -23,7 +23,7 @@ jobs:
       run: |
         git checkout staging
         git merge staging --no-ff --no-edit
-        git push origin staging
+        git push origin master
 
         # Create a pull request
         gh pr create --base master --head staging --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
