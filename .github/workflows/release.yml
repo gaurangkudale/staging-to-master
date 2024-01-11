@@ -40,3 +40,8 @@ jobs:
         formatted_pr_title=$(echo "$pr_title" | tr -d ' ')
   
         echo "::set-output name=TAG_INFO::${formatted_pr_title}"
+        echo "TAG_INFO=${formatted_pr_title}" >> $GITHUB_ENV
+        
+    - name: Set up Azure environment
+      run: |
+        echo "PR title from Taginfo: ${{ needs.taginfo.outputs.tag_info }}"
