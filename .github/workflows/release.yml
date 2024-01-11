@@ -23,11 +23,20 @@ jobs:
         # Create a pull request to main-gk branch
         gh pr create --base main-gk --head staging --title "Release-${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
       env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+        GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-    - name: Merge PR info
+    - name: Merge PR version info
       id: tag_info_out
       run: |
         merged_commit_sha=$(git rev-parse "HEAD^{commit}")
         pr_title_tag=${{ github.event.inputs.version }}
         echo "PR title: $pr_title_tag"
+
+    - name: Taginfo
+      id: tag_info
+      run: |
+        merged_commit_sha=$(git rev-parse "HEAD^{commit}")
+        pr_title=$(git log --merges --pretty=format:"%b" -n 1 $merged_commit_sha | awk '/^Merge pull request/ {print $5}')
+        formatted_pr_title=$(echo "$pr_title" | tr -d ' ')
+  
+        echo "::set-output name=TAG_INFO::${formatted_pr_title}"
