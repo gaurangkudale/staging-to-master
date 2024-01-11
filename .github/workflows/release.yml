@@ -29,11 +29,5 @@ jobs:
       id: tag_info_out
       run: |
         merged_commit_sha=$(git rev-parse "HEAD^{commit}")
-        pr_title=$(git log --merges --pretty=format:"%b" -n 1 $merged_commit_sha | awk '/^Merge pull request/ {print $5}')
-        echo "PR title: $pr_title"
-        
-        # Optionally, you can format the PR title if needed (e.g., removing spaces)
-        formatted_pr_title=$(echo "$pr_title" | tr -d ' ')
-
-        echo "PR title: $formatted_pr_title"
-        echo "::set-output name=TAG_INFO::${formatted_pr_title}"
+        pr_title_tag=${{ github.event.inputs.version }}
+        echo "PR title: $pr_title_tag"
