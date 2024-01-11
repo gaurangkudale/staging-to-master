@@ -22,3 +22,6 @@ jobs:
 
         # Create a pull request to main-gk branch
         gh pr create --base main-gk --head staging --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
+      env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
