@@ -1,3 +1,3 @@
 # staging-to-master
 
-testing v1.0.5
+testing v1.0.6
