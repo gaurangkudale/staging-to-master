@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.1
 
 
     - name: Create PR
@@ -21,7 +21,7 @@ jobs:
         git checkout staging
 
         # Create a pull request to main-gk branch
-        gh pr create --base main-gk --head staging --title "Release ${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
+        gh pr create --base main-gk --head staging --title "Release-${{ github.event.inputs.version }}" --body "Release version ${{ github.event.inputs.version }}"
       env:
             GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
