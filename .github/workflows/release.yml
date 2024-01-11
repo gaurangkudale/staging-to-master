@@ -32,7 +32,6 @@ jobs:
         pr_title_tag=${{ github.event.inputs.version }}
         echo "PR title: $pr_title_tag"
 
-
     - name: Taginfo
       id: tag_info
       run: |
