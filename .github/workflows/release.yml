@@ -21,7 +21,7 @@ jobs:
 
     - name: Create PR
       run: |
-        git checkout -b staging
+        git checkout staging
         git merge staging --no-ff --no-edit
         git push origin staging
 
